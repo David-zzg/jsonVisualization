@@ -1,14 +1,16 @@
 <template>
-    <div>
-        <h1>测试</h1>
-        <JsonDom :config="config" :json="json"></JsonDom>
-    </div>
-    
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <JsonDom :config="config" :json="json"></JsonDom>
+  </div>
 </template>
 <script>
-import Vue from 'vue';
-import {plugins,connectJson} from 'jsonv-ddd';
-Vue.use(plugins);
+import {
+    configToJson,
+    JsonConfigToMap,
+    json,
+    connectJson
+} from "@/core/index";
 const config = [{
     type:"string",
     key:"classobj",

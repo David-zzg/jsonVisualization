@@ -17,9 +17,6 @@ import {
 import JsonDom from './JsonDom2'
 console.log('Jsondom',JsonDom)
 const configMap = JsonConfigToMap(json)
-const initialJson = configToJson(json)
-initialJson.classobj = "aaa"
-console.log('初始化+++',initialJson)
 import modal from './modal';
 Vue.use(modal)
 const testData =       {"classobj":"aaa","classobj111":"","classobj3":[{name:111}]}
@@ -33,12 +30,7 @@ export default {
     return {
       config:json,
       configMap,
-      initialJson,
-      // json:JSON.parse(JSON.stringify(initialJson))
       json:finalJson
-
-
-    
     }
   },
   // components:{JsonDom},

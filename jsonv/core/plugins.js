@@ -1,9 +1,18 @@
-var plugins = {
-    
-}
+import Vue from 'vue';
+import JsonCreator from './JsonCreator';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
+Vue.use(iView)
+const plugins = {}
+
 plugins.install = function (Vue,options) {
     if(plugins.hasIntalled)return;
     plugins.hasIntalled = true;
+    Vue.component(
+        'JsonDom',
+        // 这个 `import` 函数会返回一个 `Promise` 对象。
+        () => import('@/components/JsonDom')
+    );
     Vue.prototype.$JsonModal = function (params) {
         console.log('jsonmodal')
         const id = createDom(document.body);
