@@ -1,7 +1,12 @@
 <template>
     <div>
-        <h1>测试</h1>
-        <JsonDom :config="config" :json="json"></JsonDom>
+        <h1>这是一个json可视化demo</h1>
+        <JsonEntry :config="config" v-model="json">
+            编辑
+        </JsonEntry>
+        <pre>
+            {{JSON.stringify(json)}}
+        </pre>
     </div>
     
 </template>
@@ -9,11 +14,24 @@
 import Vue from 'vue';
 import {plugins,connectJson} from 'jsonv-ddd';
 Vue.use(plugins);
-const config = [{
-    type:"string",
+const config2 = [{
+    type:"radio",
     key:"classobj",
     name:"同学",
+    list:[{value:'111',name:'选择1'},{value:'112',name:'选择2'}],
     defaultValue:"1111"
+},{
+    type:"checkbox",
+    key:"classob22j",
+    name:"同学",
+    list:[{value:'111',name:'选择1'},{value:'ddd',name:'选择2'}],
+    defaultValue:["111"]
+},{
+    type:"select",
+    key:"classob222j",
+    name:"同学",
+    list:[{value:'111',name:'选择1'},{value:'ddd',name:'选择2'}],
+    defaultValue:'111'
 },{
     type:"string",
     key:"classobj111",
@@ -28,11 +46,12 @@ const config = [{
         key:"0",
         name:"对象",
         children:[{
-            type:"string",
-            key:"classobj",
-            name:"同学",
-            defaultValue:"1111"
-        },{
+                type:"radio",
+                key:"classobj",
+                name:"同学",
+                list:[{value:'111',name:'选择1'},{value:'112',name:'选择2'}],
+                defaultValue:"1111"
+            },{
             type:"object",
             key:"classobj3",
             name:"同学",
@@ -82,7 +101,148 @@ const config = [{
         }]
     }]
 }]
-const data = {"classobj":"aaa","classobj111":"","classobj3":[{name:111}]}
+const config = [{
+    type:"array",
+    key:"prizeList",
+    name:"奖品列表",
+    children:[{
+        type:"object",
+        key:"0",
+        name:"奖品列表子项",
+        children:[{
+            type:"string",
+            key:"awardimage_url",
+            name:"奖品图片",
+            placeholder:"请输入图片地址",
+            defaultValue:""
+        },{
+            type:"string",
+            key:"awardid",
+            name:"奖品id",
+            weight:10,
+            defaultValue:""
+        },{
+            type:"string",
+            key:"awardname",
+            name:"奖品名字",
+            defaultValue:""
+        },{
+            type:"string",
+            key:"m_qq_awardjump_url",
+            name:"手Q跳转地址",
+            defaultValue:""
+        },{
+            type:"string",
+            key:"m_wx_awardjump_url",
+            name:"手Q跳转地址",
+            defaultValue:""
+        },{
+            type:"string",
+            key:"desc",
+            name:"描述",
+            defaultValue:""
+        },{
+            type:"string",
+            key:"title",
+            name:"标题",
+            defaultValue:""
+        },{
+            type:"select",
+            key:"type",
+            name:"奖品类型",
+            list:[{
+                value:'money',
+                name:'红包'
+            },{
+                value:'jindou',
+                name:'金豆'
+            }],
+            defaultValue:"money"
+        },{
+            type:"string",
+            key:"buttonText",
+            name:"按钮文案",
+            defaultValue:""
+        },{
+            type:"object",
+            key:"awardextend",
+            name:"拓展配置",
+            defaultValue:{},
+            children:[{
+                type:"select",
+                key:"size",
+                name:"奖品尺寸",
+                list:[{
+                    value:'big',
+                    name:'大'
+                },{
+                    value:'normal',
+                    name:'中'
+                }],
+                defaultValue:"big"
+            }]
+        }]
+    }]
+},{
+    type:"object",
+    key:"activity",
+    name:"活动配置",
+    children:[{
+        type:"string",
+        key:"title",
+        name:"活动标题",
+    }]
+},{
+    type:"object",
+    key:"activityStatus",
+    name:"活动状态配置",
+    children:[{
+        type:"object",
+        key:"1",
+        name:"首充情况",
+        children:[{
+            type:"string",
+            key:"title",
+            name:"标题",
+            defaultValue:"任意充值送红包"
+        },{
+            type:"string",
+            key:"desc",
+            name:"描述",
+            defaultValue:"任意充值送红包"
+        },{
+            type:"array",
+            key:"button",
+            name:"按钮",
+            children:[{
+                type:"object",
+                key:"0",
+                children:[{
+                    type:"string",
+                    key:"title",
+                    name:"标题",
+                    defaultValue:"立即充值"
+                },{
+                    type:"radio",
+                    key:"type",
+                    name:"类型",
+                    list:[{
+                        value:"shouchong",
+                        name:"首充"
+                    },{
+                        value:"menkan",
+                        name:"门槛类型"
+                    }],
+                    defaultValue:"shouchong"
+                }]
+            }]
+        }]
+    }]
+}]
+
+const data =                 {"prizeList":[{"awardid":"123","awardimage_url":"测试","awardname":"122","m_qq_awardjump_url":"333","m_wx_awardjump_url":"44","desc":"555","title":"666","type":"jindou","buttonText":"123","awardextend":{"size":"big"}}],"activity":{"title":""},"activityStatus":{"1":{"title":"任意充值送红包","desc":"任意充值送红包","button":[{"title":"立即充值","type":"shouchong"}]}}}
+
+
 const finalJson = connectJson(config,data);
 console.log(finalJson)
 export default {
